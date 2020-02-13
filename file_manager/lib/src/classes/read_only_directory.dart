@@ -1,7 +1,7 @@
 import 'file.dart';
 
 class ReadOnlyDirectory extends ReadOnlyFile {
-  ReadOnlyDirectory(String path) : super(path);
+  ReadOnlyDirectory(String path, this.children) : super(path);
 
-  Future<List<ReadOnlyFile>> listFiles() async {}
+  final List<FileBase> children;
 }
