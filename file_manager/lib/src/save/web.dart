@@ -22,9 +22,9 @@ Future<bool> saveFile(
     }
     return false;
   }
-  html.AnchorElement()
+  final _element = html.AnchorElement()
     ..href = dataUrl.toString()
-    ..setAttribute("download", fileName)
-    ..click();
+    ..setAttribute("download", fileName);
+  _element.click();
   return true;
 }
