@@ -3,7 +3,6 @@ import 'dart:io' as io;
 
 import 'package:file_chooser/file_chooser.dart';
 import 'package:flutter/foundation.dart';
-import 'package:path/path.dart' as p;
 
 Future<bool> saveFile(
   String fileName, {

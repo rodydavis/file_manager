@@ -35,11 +35,16 @@ class _FileDownloadExampleState extends State<FileDownloadExample> {
             tooltip: "Upload File",
             icon: Icon(Icons.file_upload),
             onPressed: () {
-              manager.openFile().then((files) {
+              manager.openFile().then((files) async {
                 if (files != null) {
+                  String _contents;
+                  final _file = files.first;
+                  if (_file is manager.ReadOnlyFile) {
+                    _contents = await _file.readString();
+                  }
                   if (mounted)
                     setState(() {
-                      _controller.text = files.map((e) => e.path).join("\n");
+                      _controller.text = _contents;
                     });
                 }
               });

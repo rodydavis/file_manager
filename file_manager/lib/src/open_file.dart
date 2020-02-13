@@ -28,7 +28,21 @@ Future<List<FileBase>> openFile({
     if (_file != null) {
       List<html.File> files = (_file.target as dynamic).files;
       return files.map((f) {
-        return ReadOnlyFile(allowSelectDirectories ? f.relativePath : f.name);
+        return ReadOnlyFile(
+          allowSelectDirectories ? f.relativePath : f.name,
+          readString: () async {
+            final reader = new html.FileReader();
+            reader.readAsText(f);
+            await reader.onLoadEnd.first;
+            return reader.result;
+          },
+          readBytes: () async {
+            final reader = new html.FileReader();
+            reader.readAsArrayBuffer(f);
+            await reader.onLoadEnd.first;
+            return reader.result as List<int>;
+          },
+        );
       }).toList();
     }
     return [];
@@ -52,7 +66,14 @@ Future<List<FileBase>> openFile({
         return _files;
       } else {
         final _paths = result?.paths ?? [];
-        return _paths.map((p) => ReadOnlyFile(p)).toList();
+        return _paths.map((p) {
+          final item = io.File(p);
+          return ReadOnlyFile(
+            item.path,
+            readString: () => item.readAsString(),
+            readBytes: () => item.readAsBytes(),
+          );
+        }).toList();
       }
     }
   }
@@ -64,7 +85,11 @@ List<FileBase> _readDir(io.Directory dir) {
   if (dir.existsSync()) {
     for (var item in dir.listSync(recursive: true)) {
       if (item is io.File) {
-        final _file = ReadOnlyFile(item.path);
+        final _file = ReadOnlyFile(
+          item.path,
+          readString: () => item.readAsString(),
+          readBytes: () => item.readAsBytes(),
+        );
         _files.add(_file);
       }
       if (item is io.Directory) {

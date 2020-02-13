@@ -1,11 +1,14 @@
-import 'dart:typed_data';
+import 'package:flutter/material.dart';
 
 import 'base.dart';
 
 class ReadOnlyFile extends FileBase {
-  ReadOnlyFile(String path) : super(path);
+  ReadOnlyFile(
+    String path, {
+    @required this.readBytes,
+    @required this.readString,
+  }) : super(path);
 
-  Future<List<Uint8List>> readAsBytes() async {}
-
-  Future<String> readAsString() async {}
+  final Future<String> Function() readString;
+  final Future<List<int>> Function() readBytes;
 }
