@@ -42,18 +42,7 @@ Future<bool> saveFile(
 
     if (!result.canceled) {
       final _path = result?.paths?.first ?? '';
-      final _folder = io.Directory(_path);
-      if (!_folder.existsSync()) {
-        try {
-          await io.Directory(_path).create(recursive: true);
-        } catch (e) {
-          if (!silentErrors) {
-            throw Exception("Error Creating Directory: $e");
-          }
-          return false;
-        }
-      }
-      final _file = io.File(p.join(_folder.path, fileName));
+      final _file = io.File(_path);
       if (!_file.existsSync()) {
         try {
           await _file.create(recursive: true);
