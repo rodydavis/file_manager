@@ -8,6 +8,6 @@ class DropZone extends StatelessWidget {
   const DropZone({Key key, this.child}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(child: child);
   }
 }
