@@ -1,3 +1,4 @@
+import 'package:drop_zone/drop_zone.dart';
 import 'package:flutter/material.dart';
 import 'package:file_manager/file_manager.dart' as manager;
 
@@ -43,20 +44,22 @@ class _FileDownloadExampleState extends State<FileDownloadExample> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              style: TextStyle(color: Colors.black),
-              decoration: const InputDecoration(
-                hintText: 'Enter Text Here',
-                border: InputBorder.none,
+      body: DropZone(
+        child: SingleChildScrollView(
+          child: Container(
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                style: TextStyle(color: Colors.black),
+                decoration: const InputDecoration(
+                  hintText: 'Enter Text Here',
+                  border: InputBorder.none,
+                ),
+                maxLines: null,
+                onChanged: (val) => _data = val,
+                textAlign: TextAlign.center,
               ),
-              maxLines: null,
-              onChanged: (val) => _data = val,
-              textAlign: TextAlign.center,
             ),
           ),
         ),
