@@ -33,20 +33,41 @@ class _FileDownloadExampleState extends State<FileDownloadExample> {
         actions: <Widget>[
           IconButton(
             tooltip: "Upload File",
-            icon: Icon(Icons.cloud_upload),
+            icon: Icon(Icons.file_upload),
             onPressed: () {
-              manager
-                  .openFile(
-                allowSelectDirectories: true,
-              )
-                  .then((files) {
+              manager.openFile().then((files) {
                 if (files != null) {
-                  for (var file in files) {
-                    print('Path: ${file.path}');
-                  }
                   if (mounted)
                     setState(() {
-                      _controller.text = files.first.path;
+                      _controller.text = files.map((e) => e.path).join("\n");
+                    });
+                }
+              });
+            },
+          ),
+          IconButton(
+            tooltip: "Upload Files",
+            icon: Icon(Icons.content_copy),
+            onPressed: () {
+              manager.openFile(allowSelectMultiple: true).then((files) {
+                if (files != null) {
+                  if (mounted)
+                    setState(() {
+                      _controller.text = files.map((e) => e.path).join("\n");
+                    });
+                }
+              });
+            },
+          ),
+          IconButton(
+            tooltip: "Upload Folder",
+            icon: Icon(Icons.folder),
+            onPressed: () {
+              manager.openFile(allowSelectDirectories: true).then((files) {
+                if (files != null) {
+                  if (mounted)
+                    setState(() {
+                      _controller.text = files.map((e) => e.path).join("\n");
                     });
                 }
               });

@@ -28,9 +28,10 @@ Future<List<FileBase>> openFile({
     if (_file != null) {
       List<html.File> files = (_file.target as dynamic).files;
       return files.map((f) {
-        return ReadOnlyFile(f.name);
+        return ReadOnlyFile(allowSelectDirectories ? f.relativePath : f.name);
       }).toList();
     }
+    return [];
   }
   if (io.Platform.isMacOS || io.Platform.isLinux || io.Platform.isWindows) {
     final result = await showOpenPanel(
