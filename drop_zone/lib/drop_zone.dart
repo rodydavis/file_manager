@@ -1,7 +1,13 @@
 library drop_zone;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
+import 'package:flutter/material.dart';
+
+class DropZone extends StatelessWidget {
+  final Widget child;
+
+  const DropZone({Key key, this.child}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
 }

@@ -1,7 +1,4 @@
 library file_manager;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/classes/file.dart';
+export 'src/save_file.dart';
