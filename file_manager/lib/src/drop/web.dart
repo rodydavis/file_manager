@@ -46,26 +46,26 @@ class _DropZoneState extends State<DropZone> {
     value.stopPropagation();
     value.preventDefault();
     _pointStreamController.sink.add(null);
-    _addFiles(value.dataTransfer.items);
+    final items = value.dataTransfer.items;
+    print("Items Dropped: ${items.length}");
+    _addFiles(items);
   }
 
   void _addFiles(DataTransferItemList items) async {
     if (widget?.onFilesDropped != null) {
-      //  items[0].getAsFile()
-      print("ITEMS ${items.length}");
       final List<FileBase> _files = [];
       for (var i = 0; i < items.length; i++) {
         final DataTransferItem item = items[i];
         // ReadOnlyFile _file = await _readOnlyFile(item.getAsFile());
         // _files.add(_file);
-        
+
         final Entry entry = item.getAsEntry();
-        
+
         if (item.type == "") {
           final _children = await _readDir(entry as DirectoryEntry);
           _files.add(ReadOnlyDirectory(entry.fullPath, _children));
         } else {
-          FileBase _file = await _getFile(entry as FileEntry);
+          ReadOnlyFile _file = await _readOnlyFile(items[i].getAsFile());
           _files.add(_file);
         }
       }
@@ -101,7 +101,7 @@ class _DropZoneState extends State<DropZone> {
 
   Future<List<FileBase>> _readDir(DirectoryEntry directory) async {
     final List<FileBase> _files = [];
-    final reader = directory.createReader();
+    final DirectoryReader reader = directory.createReader();
     final _children = await reader.readEntries();
     if (_children != null) {
       for (var item in _children) {

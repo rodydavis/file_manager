@@ -8,6 +8,7 @@ class ReadOnlyDirectory extends FileBase {
   @override
   String toString() {
     final sb = StringBuffer();
+    sb.writeln("Directory: ${this.path}");
     for (var item in children) {
       sb.writeln("- ${item.path}");
     }

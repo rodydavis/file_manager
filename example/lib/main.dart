@@ -93,7 +93,7 @@ class _FileDownloadExampleState extends State<FileDownloadExample> {
       body: manager.DropZone(
         onFilesDropped: (files) {
           for (var file in files) {
-            print("File: $file");
+            print("$file");
           }
         },
         child: SingleChildScrollView(

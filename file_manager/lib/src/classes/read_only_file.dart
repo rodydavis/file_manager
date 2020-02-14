@@ -14,6 +14,6 @@ class ReadOnlyFile extends FileBase {
 
   @override
   String toString() {
-    return path;
+    return 'File: $path';
   }
 }
