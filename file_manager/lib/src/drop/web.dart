@@ -52,25 +52,35 @@ class _DropZoneState extends State<DropZone> {
   void _addFiles(DataTransferItemList items) async {
     if (widget?.onFilesDropped != null) {
       //  items[0].getAsFile()
+      print("ITEMS ${items.length}");
       final List<FileBase> _files = [];
       for (var i = 0; i < items.length; i++) {
-        final item = items[i];
+        final DataTransferItem item = items[i];
+        // ReadOnlyFile _file = await _readOnlyFile(item.getAsFile());
+        // _files.add(_file);
+        
         final Entry entry = item.getAsEntry();
-        if (entry.isFile) {
+        
+        if (item.type == "") {
+          final _children = await _readDir(entry as DirectoryEntry);
+          _files.add(ReadOnlyDirectory(entry.fullPath, _children));
+        } else {
           FileBase _file = await _getFile(entry as FileEntry);
           _files.add(_file);
         }
-        if (entry.isDirectory) {
-          final _children = await _readDir(entry as DirectoryEntry);
-          _files.add(ReadOnlyDirectory(entry.fullPath, _children));
-        }
       }
       widget.onFilesDropped(_files);
+      _files.clear();
     }
   }
 
-  Future<ReadOnlyFile> _getFile(FileEntry file) async {
+  Future<FileBase> _getFile(FileEntry file) async {
     final f = await file.file();
+    ReadOnlyFile _file = await _readOnlyFile(f);
+    return _file;
+  }
+
+  Future<FileBase> _readOnlyFile(File f) async {
     final _file = ReadOnlyFile(
       f.name,
       readString: () async {
@@ -93,17 +103,19 @@ class _DropZoneState extends State<DropZone> {
     final List<FileBase> _files = [];
     final reader = directory.createReader();
     final _children = await reader.readEntries();
-    for (var item in _children) {
-      if (item.isFile) {
-        final _file = await _getFile(item);
-        if (_file != null) {
-          _files.add(_file);
+    if (_children != null) {
+      for (var item in _children) {
+        if (item.isFile) {
+          final _file = await _getFile(item);
+          if (_file != null) {
+            _files.add(_file);
+          }
         }
-      }
-      if (item.isDirectory) {
-        final _children = await _readDir(item as DirectoryEntry);
-        if (_children != null) {
-          _files.add(ReadOnlyDirectory(item.fullPath, _children));
+        if (item.isDirectory) {
+          final _children = await _readDir(item as DirectoryEntry);
+          if (_children != null) {
+            _files.add(ReadOnlyDirectory(item.fullPath, _children));
+          }
         }
       }
     }
