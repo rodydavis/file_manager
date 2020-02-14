@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:html';
-
 import 'package:flutter/material.dart';
 
 import '../../file_manager.dart';
@@ -49,6 +48,7 @@ class _DropZoneState extends State<DropZone> {
     final items = value.dataTransfer.items;
     print("Items Dropped: ${items.length}");
     _addFiles(items);
+    _dragStateStreamController.sink.add(_DragState.notDragging);
   }
 
   void _addFiles(DataTransferItemList items) async {
@@ -125,18 +125,17 @@ class _DropZoneState extends State<DropZone> {
   void _onDragOver(MouseEvent value) {
     value.stopPropagation();
     value.preventDefault();
-    this
-        ._pointStreamController
-        .sink
+    _pointStreamController.sink
         .add(Point<double>(value.layer.x.toDouble(), value.layer.y.toDouble()));
-    this._dragStateStreamController.sink.add(_DragState.dragging);
+    _dragStateStreamController.sink.add(_DragState.dragging);
   }
 
   @override
   void initState() {
     super.initState();
-    this._onDropSubscription = document.body.onDrop.listen(_onDrop);
-    this._onDragOverSubscription = document.body.onDragOver.listen(_onDragOver);
+    _onDropSubscription = document.body.onDrop.listen(_onDrop);
+    _onDragOverSubscription = document.body.onDragOver.listen(_onDragOver);
+    _dragStateStreamController.stream.listen((event) {});
   }
 
   @override
