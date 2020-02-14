@@ -1,4 +1,3 @@
-import 'package:drop_zone/drop_zone.dart';
 import 'package:flutter/material.dart';
 import 'package:file_manager/file_manager.dart' as manager;
 
@@ -91,7 +90,12 @@ class _FileDownloadExampleState extends State<FileDownloadExample> {
           ),
         ],
       ),
-      body: DropZone(
+      body: manager.DropZone(
+        onFilesDropped: (files) {
+          for (var file in files) {
+            print("File: ${file.path}");
+          }
+        },
         child: SingleChildScrollView(
           child: Container(
             child: Padding(

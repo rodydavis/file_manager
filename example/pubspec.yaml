@@ -10,8 +10,6 @@ dependencies:
   cupertino_icons: ^0.1.2
   file_manager:
     path: ../file_manager
-  drop_zone:
-    path: ../drop_zone
 
 dev_dependencies:
   flutter_test:
