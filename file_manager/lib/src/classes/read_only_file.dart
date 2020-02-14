@@ -11,4 +11,9 @@ class ReadOnlyFile extends FileBase {
 
   final Future<String> Function() readString;
   final Future<List<int>> Function() readBytes;
+
+  @override
+  String toString() {
+    return path;
+  }
 }
