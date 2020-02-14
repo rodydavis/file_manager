@@ -17,5 +17,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  file: any
+  test: any
 
 flutter:
