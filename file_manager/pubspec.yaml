@@ -12,7 +12,7 @@ dependencies:
   file_chooser:
     git:
       url: https://github.com/google/flutter-desktop-embedding
-      path: plugins/file_chooser
+      path: ../plugins/file_chooser
   path: any
   universal_html: ^1.1.12
 
