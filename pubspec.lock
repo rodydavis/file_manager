@@ -109,7 +109,7 @@ packages:
   file_chooser:
     dependency: "direct main"
     description:
-      path: "../file_chooser"
+      path: file_chooser
       relative: true
     source: path
     version: "0.1.0"

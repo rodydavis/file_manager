@@ -81,7 +81,7 @@ packages:
   file_manager:
     dependency: "direct main"
     description:
-      path: "../file_manager"
+      path: ".."
       relative: true
     source: path
     version: "0.0.1"

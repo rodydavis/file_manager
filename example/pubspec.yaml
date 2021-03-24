@@ -10,7 +10,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^0.1.2
   file_manager:
-    path: ../file_manager
+    path: ..
 
 dev_dependencies:
   flutter_test:
