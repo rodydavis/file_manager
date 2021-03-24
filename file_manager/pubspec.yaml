@@ -1,8 +1,7 @@
 name: file_manager
 description: A new Flutter package project.
 version: 0.0.1
-author:
-homepage:
+publish_to: "none"
 environment:
   sdk: ">=2.1.0 <3.0.0"
 
@@ -10,7 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   file_chooser:
-    path: ../packages/file_chooser
+    path: ../file_chooser
 
   path: any
   universal_html: ^1.1.12

@@ -15,9 +15,7 @@ Future<List<FileBase>> openFile({
     final result = await showOpenPanel(
       initialDirectory: initialDirectoryDesktop,
       canSelectDirectories: allowSelectDirectories,
-      allowedFileTypes: fileTypesDesktop == null
-          ? null
-          : [FileTypeFilterGroup(label: '', fileExtensions: fileTypesDesktop)],
+      allowedFileTypes: fileTypesDesktop == null ? null : fileTypesDesktop,
       allowsMultipleSelection: allowSelectMultiple,
     );
 
